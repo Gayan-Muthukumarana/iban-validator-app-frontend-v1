@@ -6,7 +6,7 @@
       </div>
       <div class="w-full rounded-lg bg-white shadow sm:max-w-md md:mt-0 xl:p-0 dark:border dark:border-gray-700 dark:bg-gray-800">
         <div class="space-y-4 p-6 sm:p-8 md:space-y-6">
-          <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">Sign in to your account</h1>
+          <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">Sign in to your Admin account</h1>
           <form class="space-y-4 md:space-y-6" @submit.prevent="submitLoginForm">
             <div>
               <label for="email" class="mb-2 block text-sm font-medium text-gray-900 dark:text-white">
@@ -41,10 +41,6 @@
               </div>
             </div>
             <button type="submit" class="bg-primary-600 hover:bg-primary-700 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800 w-full rounded-lg px-5 py-2.5 text-center text-sm font-medium text-white focus:outline-none focus:ring-4">Sign in</button>
-            <p class="text-sm font-light text-gray-500 dark:text-gray-400">
-              Don’t have an account yet?
-              <router-link to="/register" class="text-primary-600 dark:text-primary-500 font-medium hover:underline">Sign up</router-link>
-            </p>
           </form>
         </div>
       </div>
@@ -58,7 +54,7 @@
   import AppName from "@/components/app-name.vue";
 
   export default {
-    name: 'login-page',
+    name: 'admin-login-page',
     components: {
       AppName
     },
@@ -72,14 +68,14 @@
     },
     methods: {
       async submitLoginForm() {
-        await axios.post('login', {
+        await axios.post('admin-login', {
           email: this.email,
           password: this.password
-        }).then(response => {
+        }).then(res => {
           this.showErrorMessage = false;
-          localStorage.setItem('token', response.data.data.token);
-          this.$store.dispatch('setUser', response.data.data.user);
-          this.$router.push('/');
+          localStorage.setItem('admin-token', res.data.data.token);
+          this.$store.dispatch('setAdminUser', res.data.data.user);
+          this.$router.push('/admin-dashboard');
         }).catch(error => {
           this.showErrorMessage = true;
           this.errorMessage = error.response?.data?.message ?? 'Invalid login!';

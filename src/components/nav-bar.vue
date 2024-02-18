@@ -51,9 +51,15 @@
     },
     methods: {
       logoutUser() {
-        localStorage.removeItem('token');
-        this.$store.dispatch('setUser', null);
-        this.$router.push('/');
+        if (localStorage.getItem('admin-token')) {
+          localStorage.removeItem('admin-token');
+          this.$store.dispatch('setAdminUser', null);
+          this.$router.push('/admin-login');
+        } else {
+          localStorage.removeItem('token');
+          this.$store.dispatch('setUser', null);
+          this.$router.push('/');
+        }
       }
     },
     computed: {

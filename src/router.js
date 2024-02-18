@@ -17,4 +17,4 @@ const router = createRouter({
     ]
 });
 
-export default router // Export the router instance
+export default router

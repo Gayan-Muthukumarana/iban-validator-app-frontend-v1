@@ -30,6 +30,7 @@
   import NavBar from "@/components/nav-bar.vue";
   import 'vue-good-table/dist/vue-good-table.css'
   import { VueGoodTable } from 'vue-good-table-next';
+  import {mapGetters} from "vuex";
 
   export default {
     name: 'admin-dashboard',
@@ -67,6 +68,9 @@
     },
     created() {
       this.loadIbaNumbersList();
+    },
+    computed: {
+      ...mapGetters(['adminUser'])
     },
     methods: {
       async submitLoginForm() {

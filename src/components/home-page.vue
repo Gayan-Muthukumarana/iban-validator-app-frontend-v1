@@ -74,7 +74,8 @@ export default {
     async checkValidity() {
       this.isSubmitted = true;
       await axios.post('check-validity', {
-        iba_number: this.iba_number
+        iba_number: this.iba_number,
+        user_id: this.user?.id
       }).then(res => {
         this.successMessage = true;
         this.returningMessage = res.response?.data?.message ?? 'Your IBA Number is valid.';
